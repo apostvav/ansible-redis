@@ -1,0 +1,9 @@
+---
+# redis server setup
+- include_tasks: redis_server.yml
+  when: not redis_sentinel
+
+# redis sentinel setup
+- include_tasks: sentinel.yml
+  when: redis_sentinel
+  tags: sentinel

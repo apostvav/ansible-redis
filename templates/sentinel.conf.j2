@@ -1,0 +1,8 @@
+# redis sentinel configuration
+
+{#{% for monitor in redis_sentinel_monitors -%}
+# {{ monitor.name }}
+sentinel monitor {{ monitor.name }} {{ monitor.host }} {{ monitor.port }} {{ redis_sentinel_quorum }}
+{% endfor %}#}
+
+include {{ redis_conf_dir }}/sentinel_includes.conf
