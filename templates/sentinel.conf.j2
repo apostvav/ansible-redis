@@ -1,8 +1,19 @@
-# redis sentinel configuration
 
-{#{% for monitor in redis_sentinel_monitors -%}
+{% for monitor in redis_sentinel_monitors -%}
 # {{ monitor.name }}
 sentinel monitor {{ monitor.name }} {{ monitor.host }} {{ monitor.port }} {{ redis_sentinel_quorum }}
+{% if monitor.pass is defined -%}
+sentinel auth-pass {{ monitor.name }} {{ monitor.pass }}
+{% endif %}
+{% if monitor.down_after_milliseconds is defined -%}
+sentinel down-after-milliseconds {{ monitor.name }} {{ monitor.down_after_milliseconds }}
+{% endif -%}
+{% if monitor.failover_timeout is defined -%}
+sentinel failover-timeout {{ monitor.name }} {{ monitor.failover_timeout }}
+{% endif -%}
+{% if monitor.parallel_syncs is defined -%}
+sentinel parallel-syncs {{ monitor.name }} {{ monitor.parallel_syncs }}
+{% endif -%}
 {% endfor %}#}
 
-include {{ redis_conf_dir }}/sentinel_includes.conf
+{# include {{ redis_conf_dir }}/sentinel_includes.conf #}

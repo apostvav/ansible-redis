@@ -27,11 +27,18 @@
   when: dpkg_result.rc == 1
 
 - name: redis sentinel configuration
-  template:
-    src: sentinel_includes.conf.j2
-    dest: /etc/redis/sentinel_includes.conf
+  blockinfile:
+    path: /etc/redis/sentinel.conf
     owner: redis
     group: redis
     mode: '0640'
     backup: true
+    insertbefore: BOF
+    block: |
+      daemonize yes
+      pidfile "{{ redis_sentinel_pidfile }}"
+      logfile "{{ redis_sentinel_logfile }}"
+      bind "{{ redis_sentinel_bind }}"
+      port "{{ redis_sentinel_port }}"
+      dir "{{ redis_sentinel_dir }}"
   notify: restart sentinel
