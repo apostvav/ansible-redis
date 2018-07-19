@@ -14,6 +14,6 @@ sentinel failover-timeout {{ monitor.name }} {{ monitor.failover_timeout }}
 {% if monitor.parallel_syncs is defined -%}
 sentinel parallel-syncs {{ monitor.name }} {{ monitor.parallel_syncs }}
 {% endif -%}
-{% endfor %}#}
+{% endfor %}
 
-{# include {{ redis_conf_dir }}/sentinel_includes.conf #}
+{{''}}

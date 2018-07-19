@@ -38,7 +38,7 @@
       daemonize yes
       pidfile "{{ redis_sentinel_pidfile }}"
       logfile "{{ redis_sentinel_logfile }}"
-      bind "{{ redis_sentinel_bind }}"
-      port "{{ redis_sentinel_port }}"
+      bind {{ redis_sentinel_bind }}
+      port {{ redis_sentinel_port }}
       dir "{{ redis_sentinel_dir }}"
   notify: restart sentinel

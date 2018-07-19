@@ -21,8 +21,8 @@ rdbcompression {{ redis_rdbcompression }}
 rdbchecksum {{ redis_rdbchecksum }}
 dbfilename {{ redis_dbfilename }}
 dir {{ redis_dir }}
-{% if redis_slaveof is defined -%}
-slaveof {{ redis_slaveof }}
+{% if redis_slaveof_host is defined and redis_slaveof_port is defined -%}
+slaveof {{ redis_slaveof_host }} {{ redis_slaveof_port }}
 {% endif -%}
 masterauth {{ redis_password }}
 slave-serve-stale-data yes
